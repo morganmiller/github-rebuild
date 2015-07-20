@@ -25,5 +25,6 @@ group :development, :test do
   gem 'capybara'
   gem 'launchy'
   gem 'awesome_print'
+  gem 'pry'
 end
 
