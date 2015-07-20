@@ -13,6 +13,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'figaro'
 gem 'bootstrap-sass', '~> 3.2.0'
+gem 'bootstrap-social-rails'
 gem 'autoprefixer-rails'
 
 
