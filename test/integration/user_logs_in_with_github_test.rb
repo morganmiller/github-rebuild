@@ -11,7 +11,7 @@ class UserLogsInWithGithubTest < ActionDispatch::IntegrationTest
     assert_equal 200, page.status_code
     click_on 'Sign in with Github'
     assert_equal '/', current_path
-    assert page.has_content?("Horace")
+    assert page.has_content?("worace")
     assert page.has_link?("logout")
   end
   
@@ -20,7 +20,7 @@ class UserLogsInWithGithubTest < ActionDispatch::IntegrationTest
     click_on 'Sign in with Github'
     click_link 'logout'
     assert_equal '/', current_path
-    refute page.has_content?("Horace")
+    refute page.has_content?("worace")
     refute page.has_content?("logout")
   end
 
@@ -35,15 +35,14 @@ class UserLogsInWithGithubTest < ActionDispatch::IntegrationTest
           raw_info: {
             user_id: "1234",
             name: "Horace",
-            screen_name: "worace",
           }
         },
         credentials: {
           token: "pizza",
-          secret: "secretpizza"
         },
         info: {
-          image: "https://avatars.githubusercontent.com/u/8868319?v=3"
+          image: "https://avatars.githubusercontent.com/u/8868319?v=3",
+          nickname: "worace"
         }
       })
   end

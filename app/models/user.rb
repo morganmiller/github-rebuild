@@ -4,10 +4,9 @@ class User < ActiveRecord::Base
       user
     else
       create({name: auth_info.extra.raw_info.name,
-              screen_name: auth_info.extra.raw_info.screen_name,
-              uid: auth_info.extra.raw_info.user_id,
+              screen_name: auth_info.info.nickname,
+              uid: auth_info.uid,
               oauth_token: auth_info.credentials.token,
-              oauth_token_secret: auth_info.credentials.secret,
               image_url: auth_info.info.image})
     end
   end
