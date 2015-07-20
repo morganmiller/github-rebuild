@@ -1,5 +1,6 @@
 <% if current_user %>
   <p>hello, <%= current_user.name %></p>
+  <%= image_tag current_user.image_url %><br />
   <%= link_to "logout", logout_path %>
 <% else %>
   <%= link_to "login", login_path %>

@@ -7,7 +7,8 @@ class User < ActiveRecord::Base
               screen_name: auth_info.extra.raw_info.screen_name,
               uid: auth_info.extra.raw_info.user_id,
               oauth_token: auth_info.credentials.token,
-              oauth_token_secret: auth_info.credentials.secret})
+              oauth_token_secret: auth_info.credentials.secret,
+              image_url: auth_info.info.image})
     end
   end
 end
