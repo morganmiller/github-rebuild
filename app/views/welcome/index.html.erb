@@ -1,13 +1,16 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12 text-center">
+      
       <%= image_tag 'github-icon.png' %>
+      
       <% if current_user %>
         <h1>Hello, <%= current_user.name %></h1>
         <p class="lead"><%= link_to "logout", logout_path %></p>
       <% else %>
         <%= button_to "Sign in with Github", login_path, class: 'btn btn-social btn-github' %>
       <% end %>
+      
     </div>
   </div>
 </div>
