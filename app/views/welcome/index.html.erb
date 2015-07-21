@@ -7,6 +7,16 @@
       <% if current_user %>
         <h1>Hello, <%= current_user.screen_name %></h1>
         <p class="lead"><%= link_to "logout", logout_path %></p>
+        <table class="user-stats">
+          <tr>
+          <td>followers</td>
+          <td>following</td>
+          <td>starred</td>
+          </tr>
+          <th>0</th>
+          <th>0</th>
+          <th>0</th>
+        </table>
       <% else %>
         <%= button_to "Sign in with Github", login_path, class: 'btn btn-social btn-github' %>
       <% end %>

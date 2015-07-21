@@ -10,4 +10,18 @@ class User < ActiveRecord::Base
               image_url: auth_info.info.image})
     end
   end
+  
+  def g_user
+    Octokit.user screen_name
+  end
+  
+  def total_followers
+    g_user.followers
+  end
+  
+  def total_following
+    g_user.following
+  end
+  
+  
 end
