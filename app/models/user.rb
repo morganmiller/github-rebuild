@@ -11,17 +11,32 @@ class User < ActiveRecord::Base
     end
   end
   
-  def g_user
+  def git_user
     Octokit.user screen_name
   end
   
   def total_followers
-    g_user.followers
+    git_user.followers
   end
   
   def total_following
-    g_user.following
+    git_user.following
   end
   
+  def total_starred
+    Octokit.starred(screen_name).count  
+  end
+  
+  def followers
+    JSON.parse(Octokit.followers(screen_name))
+  end
+
+  def following
+    JSON.parse(Octokit.following(screen_name))
+  end
+
+  def starred
+    JSON.parse(Octokit.starred(screen_name))
+  end
   
 end
