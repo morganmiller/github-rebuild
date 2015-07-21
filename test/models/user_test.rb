@@ -19,4 +19,9 @@ class UserTest < ActiveSupport::TestCase
     user = create_user
     assert_equal 0, user.total_following
   end
+
+  test "knows number starred" do
+    user = create_user
+    assert_equal 4, user.total_starred
+  end
 end 
