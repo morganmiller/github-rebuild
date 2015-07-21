@@ -43,4 +43,10 @@ class User < ActiveRecord::Base
     JSON.parse(client.starred(screen_name))
   end
   
+  def total_commits
+    client.repos.each_with_object([]) do |repo, count|
+      count << client.commits(repo.full_name, author: screen_name).count
+    end.sum
+  end
+  
 end
