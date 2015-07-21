@@ -24,4 +24,9 @@ class UserTest < ActiveSupport::TestCase
     user = create_user
     assert_equal 4, user.total_starred
   end
+  
+  test "knows total commits" do
+    user = create_user
+    assert user.total_commits >= 246
+  end
 end 

@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   def self.from_omniauth(auth_info)
+    
     if user = find_by(uid: auth_info.extra.raw_info.user_id)
       user
     else
@@ -11,8 +12,12 @@ class User < ActiveRecord::Base
     end
   end
   
+  def client
+    Octokit::Client.new(:access_token => oauth_token)
+  end
+  
   def git_user
-    Octokit.user screen_name
+    client.user
   end
   
   def total_followers
@@ -24,19 +29,28 @@ class User < ActiveRecord::Base
   end
   
   def total_starred
-    Octokit.starred(screen_name).count  
+    client.starred.count  
   end
   
   def followers
-    JSON.parse(Octokit.followers(screen_name))
+    JSON.parse(client.followers(screen_name))
   end
 
   def following
-    JSON.parse(Octokit.following(screen_name))
+    JSON.parse(client.following(screen_name))
   end
 
   def starred
-    JSON.parse(Octokit.starred(screen_name))
+    JSON.parse(client.starred(screen_name))
   end
   
+  def total_commits
+    client.repos.each_with_object([]) do |repo, count|
+      count << client.commits(repo.full_name, author: screen_name).count
+    end.sum
+  end
+  
+  def user_events
+    client.user_events(screen_name)
+  end
 end
