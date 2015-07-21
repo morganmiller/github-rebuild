@@ -17,6 +17,7 @@ gem 'bootstrap-social-rails'
 gem 'autoprefixer-rails'
 gem "octokit", "~> 3.0"
 gem 'rest-client'
+gem 'github_api'
 
 
 

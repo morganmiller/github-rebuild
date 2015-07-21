@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   def self.from_omniauth(auth_info)
+    
     if user = find_by(uid: auth_info.extra.raw_info.user_id)
       user
     else
