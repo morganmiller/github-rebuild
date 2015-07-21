@@ -39,3 +39,8 @@ table.user-stats {
 .bottom15 { margin-bottom:15%; }
 .bottom17 { margin-bottom:17%; }
 .bottom30 { margin-bottom:30%; }
+
+.span3 {
+  height: 50% !important;
+  overflow: scroll;
+}

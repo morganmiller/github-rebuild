@@ -50,4 +50,7 @@ class User < ActiveRecord::Base
     end.sum
   end
   
+  def user_events
+    client.user_events(screen_name)
+  end
 end

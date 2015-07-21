@@ -29,19 +29,57 @@
 </header>
 
 <% if current_user %>
+  
 <section id="user-feed">
+<div class="container, bottom7">
   <div class="row">
     <div class="col-md-4 text-center">
       <h1>Activity Panel</h1>
-      <h3>Commits:</h3> <%= current_user.total_commits %>
-      <h3>Pull Requests:</h3> 
-      <h3>Issues:</h3>
+      <h3>Commits:</h3> 560
+      <h3>Pull Requests:</h3> 100 
+      <h3>Issues:</h3> 100
     </div>
 
     <div class="col-md-8 text-center">
       <h1>User Feed</h1>
+      <% current_user.user_events.each do |event| %>
+      <li>
+        <% if event.type == "PushEvent" %>
+          Pushed <%= event.payload.size %> commit(s) to <%= link_to event.repo.name, event.repo.url %>
+        <% elsif event.type == "PullRequestEvent" %>
+          <%= event.payload.action.capitalize %> a <%= link_to "pull request", event.payload.pull_request.url %> for <%= link_to event.repo.name, event.repo.url %>
+        <% elsif event.type == "IssuesEvent" %>
+          <%= event.payload.action.capitalize %> an <%= link_to "issue", event.payload.issue.url %> for <%= link_to event.repo.name, event.repo.url %>
+        <% else %>
+          <%= event.type %> to <%= link_to event.repo.name, event.repo.url %>
+        <% end %>
+      </li>
+      <% end %>
+    </div>
+  </div>
+</div>
+</section>
+
+  
+<section id="contributions">
+  <div class="container, bottom7">
+
+  </div>
+</section>
+
+<section id="public-feed">
+  <div class="container, bottom7">
+    <div class="row">
+      <div class="col-md-8 text-center">
+        
+      </div>
+      
+      <div class="col-md-4 text-center">
+        
+      </div>
     </div>
   </div>
 </section>
+
 <% end %>
 
