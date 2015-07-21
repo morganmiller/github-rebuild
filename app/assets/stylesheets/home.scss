@@ -1,0 +1,23 @@
+
+img.img-circle.img-thumbnail.home-image {
+  height: 200px;
+}
+
+
+img.img-circle.git-icon {
+  height: 270px;
+}
+
+table.user-stats {
+  margin: 0 auto !important;
+  float: none !important;
+  border-spacing: 20px;
+  th, td {
+    text-align: center;
+  }
+  td {
+    padding: 10px;
+    width: 33%;
+  }
+}
+

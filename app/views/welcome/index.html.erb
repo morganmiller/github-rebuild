@@ -2,12 +2,24 @@
   <div class="row">
     <div class="col-lg-12 text-center">
       
-      <%= image_tag 'github-icon.png' %>
-      
       <% if current_user %>
+        <br/>
+        <%= image_tag current_user.image_url, class: 'img-circle img-thumbnail home-image' %>
         <h1>Hello, <%= current_user.screen_name %></h1>
         <p class="lead"><%= link_to "logout", logout_path %></p>
+        <table class="user-stats">
+          <tr>
+          <td>followers</td>
+          <td>following</td>
+          <td>starred</td>
+          </tr>
+          <th><%= current_user.total_followers %></th>
+          <th><%= current_user.total_following %></th>
+          <th><%= current_user.total_starred %></th>
+        </table>
+        
       <% else %>
+        <%= image_tag 'github-icon.png', class: 'img-circle git-icon' %>
         <%= button_to "Sign in with Github", login_path, class: 'btn btn-social btn-github' %>
       <% end %>
       
