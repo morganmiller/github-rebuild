@@ -15,7 +15,6 @@ gem 'figaro'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'bootstrap-social-rails'
 gem 'autoprefixer-rails'
-gem 'github_api'
 gem "octokit", "~> 3.0"
 gem 'rest-client'
 
