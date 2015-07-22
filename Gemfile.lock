@@ -42,6 +42,7 @@ GEM
       execjs
       json
     awesome_print (1.6.1)
+    basiccache (1.0.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.2.0.2)
@@ -66,6 +67,7 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     columnize (0.9.0)
+    curb (0.8.8)
     debug_inspector (0.0.2)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
@@ -85,6 +87,13 @@ GEM
       multi_json (>= 1.7.5, < 2.0)
       nokogiri (~> 1.6.3)
       oauth2
+    githubchart (1.0.0)
+      githubstats (~> 0.2.16)
+      svgplot (~> 0.2.0)
+    githubstats (0.2.18)
+      basiccache (~> 1.0.0)
+      curb (~> 0.8.6)
+      nokogiri (~> 1.6.5)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
     hashie (3.4.2)
@@ -192,6 +201,7 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
+    svgplot (0.2.0)
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
@@ -224,6 +234,8 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   figaro
   github_api
+  githubchart
+  githubstats
   jbuilder (~> 2.0)
   jquery-rails
   launchy
