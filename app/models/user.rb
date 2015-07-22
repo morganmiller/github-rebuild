@@ -53,4 +53,12 @@ class User < ActiveRecord::Base
   def user_events
     client.user_events(screen_name)
   end
+  
+  def chart
+    GithubChart.new(username: screen_name)
+  end
+  
+  def stats
+    `githubstats #{screen_name}`
+  end
 end
