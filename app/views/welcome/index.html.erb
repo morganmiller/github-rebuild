@@ -63,8 +63,13 @@
   
 <section id="contributions">
   <div class="container, bottom7">
-    <%#= current_user.chart.svg %>
-    <%= current_user.stats %>
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <%= current_user.chart.html_safe %>
+        <br>
+        <%= current_user.stats %>
+      </div>
+    </div>
   </div>
 </section>
 

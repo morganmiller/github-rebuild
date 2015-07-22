@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
   end
   
   def chart
-    GithubChart.new(username: screen_name)
+    RestClient.get("https://github.com/users/morganmiller/contributions")
   end
   
   def stats
