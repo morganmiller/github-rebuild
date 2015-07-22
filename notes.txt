@@ -1,0 +1,4 @@
+merge starred repo events and group by date to get a starred feed
+what sort of event data is served up?
+Add organizations (and organization events?)
+  

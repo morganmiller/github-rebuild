@@ -55,7 +55,11 @@ class User < ActiveRecord::Base
   end
   
   def chart
-    RestClient.get("https://github.com/users/morganmiller/contributions")
+    # RestClient.get("https://github.com/users/morganmiller/contributions")
+    chart = GithubChart.new(screen_name)
+    #8B1C62	 	#D73A9D	 	#E992C9	 	#FBEAF4
+    chart.colors = ["#000000", "#d6e685", "#8cc665", "#44a340", "#1e6823"]
+    chart.svg
   end
   
   def stats

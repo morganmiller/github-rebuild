@@ -1,0 +1,16 @@
+<h1>My Feed</h1>
+<div class="span3">
+  <% current_user.user_events.each do |event| %>
+    <li>
+      <% if event.type == "PushEvent" %>
+        Pushed <%= event.payload.size %> commit(s) to <%= link_to event.repo.name, event.repo.url %>
+      <% elsif event.type == "PullRequestEvent" %>
+        <%= event.payload.action.capitalize %> a <%= link_to "pull request", event.payload.pull_request.url %> for <%= link_to event.repo.name, event.repo.url %>
+      <% elsif event.type == "IssuesEvent" %>
+        <%= event.payload.action.capitalize %> an <%= link_to "issue", event.payload.issue.url %> for <%= link_to event.repo.name, event.repo.url %>
+      <% else %>
+        <%= event.type %> to <%= link_to event.repo.name, event.repo.url %>
+      <% end %>
+    </li>
+  <% end %>
+</div>
