@@ -251,6 +251,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   mocha
+  nokogiri
   octokit (~> 3.0)
   omniauth-github
   pg

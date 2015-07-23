@@ -81,4 +81,21 @@ class User < ActiveRecord::Base
   def repos
     client.repos
   end
+  
+  def scraped_stats
+    page = RestClient.get("http://github.com/#{screen_name}")
+    Nokogiri::HTML(page).css(".contrib-number")
+  end
+  
+  def total_contributions
+    scraped_stats.first.children.text
+  end
+  
+  def longest_streak
+    scraped_stats[1].children.text
+  end
+  
+  def current_streak
+    scraped_stats.last.children.text
+  end
 end

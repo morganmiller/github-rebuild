@@ -20,6 +20,7 @@ gem 'rest-client'
 gem 'github_api'
 gem 'githubchart'
 gem 'githubstats'
+gem 'nokogiri'
 
 
 
