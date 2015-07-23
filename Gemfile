@@ -18,6 +18,8 @@ gem 'autoprefixer-rails'
 gem "octokit", "~> 3.0"
 gem 'rest-client'
 gem 'github_api'
+gem 'githubchart'
+gem 'githubstats'
 
 
 
@@ -29,5 +31,12 @@ group :development, :test do
   gem 'launchy'
   gem 'awesome_print'
   gem 'pry'
+  gem 'mocha'
+  gem 'hashie'
+end
+
+group :test do
+  gem 'webmock'
+  gem 'vcr'
 end
 

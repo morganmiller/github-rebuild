@@ -1,15 +1,29 @@
 class User < ActiveRecord::Base
+
   def self.from_omniauth(auth_info)
-    
     if user = find_by(uid: auth_info.extra.raw_info.user_id)
+      user.update_by_auth(auth_info)
+      user.save!
       user
     else
-      create({name: auth_info.extra.raw_info.name,
-              screen_name: auth_info.info.nickname,
-              uid: auth_info.uid,
-              oauth_token: auth_info.credentials.token,
-              image_url: auth_info.info.image})
+      create_by_auth(auth_info)
     end
+  end
+
+  def self.new_user_data(auth_info)
+    {name: auth_info.extra.raw_info.name,
+      screen_name: auth_info.info.nickname,
+      uid: auth_info.uid,
+      oauth_token: auth_info.credentials.token,
+      image_url: auth_info.info.image}
+  end
+
+  def self.create_by_auth(auth_info)
+    create(new_user_data(auth_info))
+  end
+
+  def update_by_auth(auth_info)
+    self.update_attributes(new_user_data(auth_info))
   end
   
   def client
@@ -41,7 +55,11 @@ class User < ActiveRecord::Base
   end
 
   def starred
-    JSON.parse(client.starred(screen_name))
+    client.starred
+  end
+  
+  def organizations
+    client.organizations
   end
   
   def total_commits
@@ -52,5 +70,15 @@ class User < ActiveRecord::Base
   
   def user_events
     client.user_events(screen_name)
+  end
+  
+  def chart
+    chart = GithubChart.new(screen_name)
+    chart.colors = ["#F5F5DC", "#b1e1c0", "#499a7c", "#215346", "#193023"]
+    chart.svg
+  end
+  
+  def repos
+    client.repos
   end
 end

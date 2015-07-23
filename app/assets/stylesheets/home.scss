@@ -3,6 +3,9 @@ img.img-circle.img-thumbnail.home-image {
   height: 200px;
 }
 
+img.org-image {
+  height: 100px;
+}
 
 img.img-circle.git-icon {
   height: 270px;
@@ -21,9 +24,6 @@ table.user-stats {
   }
 }
 
-#user-feed {
-  background-color: rgba(245, 240, 111, 0.86);
-}
 
 .top5 { margin-top:5%; }
 .top7 { margin-top:7%; }
@@ -41,6 +41,28 @@ table.user-stats {
 .bottom30 { margin-bottom:30%; }
 
 .span3 {
-  height: 50% !important;
+  height: 300px !important;
   overflow: scroll;
+  border: solid;
+  border-width: 2px;
+}
+
+.repos {
+  height: 300px !important;
+  overflow: scroll;
+}
+
+#header-bg {
+  background-image: url('http://www.ecardmedia.eu/data/media/3/tealgreen.jpg');
+  background-repeat:no-repeat;
+  background-size:cover;
+}
+
+.navbar, .navbar-default, .navbar-header {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.container { 
+  padding-top: 0 !important;
 }

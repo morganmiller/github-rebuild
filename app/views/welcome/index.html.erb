@@ -1,69 +1,79 @@
-<header>
-<div class="container, bottom7">
-  <div class="row">
-    <div class="col-lg-12 text-center">
-      
-      <% if current_user %>
-        <br/><br/>
-        <%= image_tag current_user.image_url, class: 'img-circle img-thumbnail home-image' %>
-        <h1>Hello, <%= current_user.screen_name %></h1>
-        <table class="user-stats">
-          <tr>
-          <td>followers</td>
-          <td>following</td>
-          <td>starred</td>
-          </tr>
-          <th><%= current_user.total_followers %></th>
-          <th><%= current_user.total_following %></th>
-          <th><%= current_user.total_starred %></th>
-        </table>
+<section id="header-bg">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
         
-      <% else %>
-        <%= image_tag 'github-icon.png', class: 'img-circle git-icon' %>
-        <%= button_to "Sign in with Github", login_path, class: 'btn btn-social btn-github' %>
-      <% end %>
-      
+        <% if @user %>
+          <br/><br/>
+          <%= image_tag @user.image_url, class: 'img-circle img-thumbnail home-image' %>
+          
+          <h1>Hello, <%= @user.screen_name %></h1>
+          
+          <table class="user-stats">
+            <tr>
+            <td>followers</td>
+            <td>following</td>
+            <td>starred</td>
+            </tr>
+            <th><%= @user.total_followers %></th>
+            <th><%= @user.total_following %></th>
+            <th><%= @user.total_starred %></th>
+          </table>
+          
+        <% else %>
+          <%= image_tag 'github-icon.png', class: 'img-circle git-icon' %>
+          <%= button_to "Sign in with Github", login_path, class: 'btn btn-social btn-github' %>
+        <% end %>
+        <br><br><br><br><br><br><br>
+      </div>
     </div>
   </div>
-</div>
-</header>
-
-<% if current_user %>
+</section>
+<% if @user %>
   
 <section id="user-feed">
-<div class="container, bottom7">
-  <div class="row">
-    <div class="col-md-4 text-center">
-      <h1>Activity Panel</h1>
-      <h3>Commits:</h3> 560
-      <h3>Pull Requests:</h3> 100 
-      <h3>Issues:</h3> 100
-    </div>
-
-    <div class="col-md-8 text-center">
-      <h1>User Feed</h1>
-      <% current_user.user_events.each do |event| %>
-      <li>
-        <% if event.type == "PushEvent" %>
-          Pushed <%= event.payload.size %> commit(s) to <%= link_to event.repo.name, event.repo.url %>
-        <% elsif event.type == "PullRequestEvent" %>
-          <%= event.payload.action.capitalize %> a <%= link_to "pull request", event.payload.pull_request.url %> for <%= link_to event.repo.name, event.repo.url %>
-        <% elsif event.type == "IssuesEvent" %>
-          <%= event.payload.action.capitalize %> an <%= link_to "issue", event.payload.issue.url %> for <%= link_to event.repo.name, event.repo.url %>
-        <% else %>
-          <%= event.type %> to <%= link_to event.repo.name, event.repo.url %>
+  <div class="container, bottom7">
+    <div class="row">
+      <div class="col-md-4 text-center">
+        <h1>My Repos</h1>
+        <div class="repos">
+          <% @user.repos.each do |repo| %>
+            <li><%= link_to repo.name, "https://github.com/#{repo.full_name}" %> | Open Issues: <%= repo.open_issues_count %></li>
+          <% end %>
+        </div>
+      </div>
+  
+      <div class="col-md-4 text-center">
+        <%= render '/user_feed' %>
+        <br>
+      </div>
+  
+      <div class="col-md-4 text-center">
+        <h1>My Organizations</h1>
+        
+        <% @user.organizations.each do |org| %>
+          <li>
+            <%= image_tag org.avatar_url, class: 'org-image' %><br>
+            <%= org.login %>
+          </li>
+          <br>
         <% end %>
-      </li>
-      <% end %>
+      </div>
     </div>
   </div>
-</div>
 </section>
 
   
 <section id="contributions">
   <div class="container, bottom7">
-
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h1>My Activity</h1>
+        <p><strong>Commits:</strong> 560 | <strong>Pull Requests:</strong> 100 | <strong>Issues:</strong> 100</p>
+        <%= @user.chart.html_safe %>
+        <br>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -71,7 +81,7 @@
   <div class="container, bottom7">
     <div class="row">
       <div class="col-md-8 text-center">
-        
+
       </div>
       
       <div class="col-md-4 text-center">
