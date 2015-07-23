@@ -1,15 +1,29 @@
 class User < ActiveRecord::Base
+
   def self.from_omniauth(auth_info)
-    
     if user = find_by(uid: auth_info.extra.raw_info.user_id)
+      user.update_by_auth(auth_info)
+      user.save!
       user
     else
-      create({name: auth_info.extra.raw_info.name,
-              screen_name: auth_info.info.nickname,
-              uid: auth_info.uid,
-              oauth_token: auth_info.credentials.token,
-              image_url: auth_info.info.image})
+      create_by_auth(auth_info)
     end
+  end
+
+  def self.new_user_data(auth_info)
+    {name: auth_info.extra.raw_info.name,
+      screen_name: auth_info.info.nickname,
+      uid: auth_info.uid,
+      oauth_token: auth_info.credentials.token,
+      image_url: auth_info.info.image}
+  end
+
+  def self.create_by_auth(auth_info)
+    create(new_user_data(auth_info))
+  end
+
+  def update_by_auth(auth_info)
+    self.update_attributes(new_user_data(auth_info))
   end
   
   def client
@@ -41,7 +55,11 @@ class User < ActiveRecord::Base
   end
 
   def starred
-    JSON.parse(client.starred(screen_name))
+    client.starred
+  end
+  
+  def organizations
+    client.organizations
   end
   
   def total_commits
@@ -55,14 +73,12 @@ class User < ActiveRecord::Base
   end
   
   def chart
-    # RestClient.get("https://github.com/users/morganmiller/contributions")
     chart = GithubChart.new(screen_name)
-    #8B1C62	 	#D73A9D	 	#E992C9	 	#FBEAF4
-    chart.colors = ["#000000", "#d6e685", "#8cc665", "#44a340", "#1e6823"]
+    chart.colors = ["#F5F5DC", "#b1e1c0", "#499a7c", "#215346", "#193023"]
     chart.svg
   end
   
-  def stats
-    `githubstats #{screen_name}`
+  def repos
+    client.repos
   end
 end

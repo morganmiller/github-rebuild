@@ -1,4 +1,5 @@
 require 'test_helper'
+
 class UserLogsInWithGithubTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   
@@ -8,23 +9,34 @@ class UserLogsInWithGithubTest < ActionDispatch::IntegrationTest
   end
   
   test 'logging in' do
-    skip
+    User.any_instance.stubs(:total_followers).returns(30)
+    User.any_instance.stubs(:total_following).returns(30)
+    User.any_instance.stubs(:total_starred).returns(30)
+    User.any_instance.stubs(:total_starred)
+        .returns([{avatar_url: "http://img.jpeg", login: "name"}])
+    User.any_instance.stubs(:chart).returns("<a></a>")
+    User.any_instance.stubs(:stats).returns(30)
+    payload = stub(size: 30)
+    repo = stub(name: "repo", url: "url")
+    event = stub(type: "PushEvent", payload: payload, repo: repo)
+    User.any_instance.stubs(:user_events)
+        .returns([event])
+    organization = stub(avatar_url: "url", login: "login")
+    User.any_instance.stubs(:organizations)
+        .returns([organization])
     visit '/'
     assert_equal 200, page.status_code
     click_on 'Sign in with Github'
     assert_equal '/', current_path
-    assert page.has_content?("worace")
-    assert page.has_link?("logout")
+    assert page.has_content?("morganmiller")
   end
   
-  test 'logging out' do
-    skip
-    visit '/'
-    click_on 'Sign in with Github'
-    click_link 'logout'
-    assert_equal '/', current_path
-    refute page.has_content?("worace")
-    refute page.has_content?("logout")
+  test 'logging in with vcr' do
+    VCR.use_cassette("login with vcr") do
+      visit '/'
+      click_on 'Sign in with Github'
+      assert page.has_content?("morganmiller")
+    end
   end
 
   def stub_omniauth
@@ -37,15 +49,15 @@ class UserLogsInWithGithubTest < ActionDispatch::IntegrationTest
         extra: {
           raw_info: {
             user_id: "1234",
-            name: "Horace",
+            name: "Morgan",
           }
         },
         credentials: {
-          token: "pizza",
+          token: ENV["sample_user_token"],
         },
         info: {
           image: "https://avatars.githubusercontent.com/u/8868319?v=3",
-          nickname: "worace"
+          nickname: "morganmiller"
         }
       })
   end

@@ -3,6 +3,18 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'minitest/pride'
 require 'minitest/autorun'
+require 'mocha/mini_test'
+require 'vcr'
+
+VCR.configure do |c|
+  c.cassette_library_dir = 'test/fixtures/vcr_cassettes'
+  c.hook_into :webmock
+  c.default_cassette_options = { :serialize_with => :json }
+  c.before_record do |r|
+    r.request.headers.delete("Authorization")
+  end
+  c.allow_http_connections_when_no_cassette = true
+end
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
