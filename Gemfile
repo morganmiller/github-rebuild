@@ -21,6 +21,7 @@ gem 'github_api'
 gem 'githubchart'
 gem 'githubstats'
 gem 'nokogiri'
+gem 'rails_12factor'
 
 
 

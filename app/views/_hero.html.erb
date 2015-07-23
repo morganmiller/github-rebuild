@@ -1,0 +1,21 @@
+<% if @user %>
+  <br/><br/>
+  <%= image_tag @user.image_url, class: 'img-circle img-thumbnail home-image' %>
+
+  <h1>Hello, <%= @user.screen_name %></h1>
+
+  <table class="user-stats">
+    <tr>
+      <td>followers</td>
+      <td>following</td>
+      <td>starred</td>
+    </tr>
+    <th><%= @user.total_followers %></th>
+    <th><%= @user.total_following %></th>
+    <th><%= @user.total_starred %></th>
+  </table>
+
+<% else %>
+  <%= image_tag 'github-icon.png', class: 'img-circle git-icon' %>
+  <%= button_to "Sign in with Github", login_path, class: 'btn btn-social btn-github' %>
+<% end %>

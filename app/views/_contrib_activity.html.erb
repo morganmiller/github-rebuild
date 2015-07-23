@@ -1,0 +1,7 @@
+<h1>My Activity</h1>
+<p>
+  <strong>Commits:</strong> <%= @user.total_contributions %> |
+  <strong>Pull Requests:</strong> <%= @user.longest_streak %> |
+  <strong>Issues:</strong> <%= @user.current_streak %>
+</p>
+<%= @user.chart.html_safe %>

@@ -1,0 +1,9 @@
+<h1>My Organizations</h1>
+
+<% @user.organizations.each do |org| %>
+  <li>
+    <%= image_tag org.avatar_url, class: 'org-image' %><br>
+    <%= org.login %>
+  </li>
+  <br>
+<% end %>

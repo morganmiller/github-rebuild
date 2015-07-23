@@ -14,6 +14,10 @@ VCR.configure do |c|
     r.request.headers.delete("Authorization")
   end
   c.allow_http_connections_when_no_cassette = true
+  c.preserve_exact_body_bytes do |http_message|
+    http_message.body.encoding.name == 'ASCII-8BIT' ||
+    !http_message.body.valid_encoding?
+  end
 end
 
 class ActiveSupport::TestCase

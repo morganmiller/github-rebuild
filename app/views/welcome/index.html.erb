@@ -1,63 +1,32 @@
+<!-- header -->
 <section id="header-bg">
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
-        
-        <% if @user %>
-          <br/><br/>
-          <%= image_tag @user.image_url, class: 'img-circle img-thumbnail home-image' %>
-          
-          <h1>Hello, <%= @user.screen_name %></h1>
-          
-          <table class="user-stats">
-            <tr>
-            <td>followers</td>
-            <td>following</td>
-            <td>starred</td>
-            </tr>
-            <th><%= @user.total_followers %></th>
-            <th><%= @user.total_following %></th>
-            <th><%= @user.total_starred %></th>
-          </table>
-          
-        <% else %>
-          <%= image_tag 'github-icon.png', class: 'img-circle git-icon' %>
-          <%= button_to "Sign in with Github", login_path, class: 'btn btn-social btn-github' %>
-        <% end %>
+        <%= render '/hero' %>
         <br><br><br><br><br><br><br>
       </div>
     </div>
   </div>
 </section>
+<!-- end header -->
+
+<!-- user view -->
 <% if @user %>
   
 <section id="user-feed">
   <div class="container, bottom7">
     <div class="row">
       <div class="col-md-4 text-center">
-        <h1>My Repos</h1>
-        <div class="repos">
-          <% @user.repos.each do |repo| %>
-            <li><%= link_to repo.name, "https://github.com/#{repo.full_name}" %> | Open Issues: <%= repo.open_issues_count %></li>
-          <% end %>
-        </div>
+        <%= render '/repos' %>
       </div>
   
       <div class="col-md-4 text-center">
-        <%= render '/user_feed' %>
-        <br>
+        <%= render '/user_feed' %><br>
       </div>
   
       <div class="col-md-4 text-center">
-        <h1>My Organizations</h1>
-        
-        <% @user.organizations.each do |org| %>
-          <li>
-            <%= image_tag org.avatar_url, class: 'org-image' %><br>
-            <%= org.login %>
-          </li>
-          <br>
-        <% end %>
+        <%= render '/organizations' %>
       </div>
     </div>
   </div>
@@ -68,28 +37,12 @@
   <div class="container, bottom7">
     <div class="row">
       <div class="col-lg-12 text-center">
-        <h1>My Activity</h1>
-        <p><strong>Commits:</strong> <%= @user.total_commits %> | <strong>Pull Requests:</strong> <%= @user.longest_streak %> | <strong>Issues:</strong> <%= @user.current_streak %></p>
-        <%= @user.chart.html_safe %>
-        <br>
+        <%= render '/contrib_activity' %>
       </div>
     </div>
   </div>
 </section>
-
-<section id="public-feed">
-  <div class="container, bottom7">
-    <div class="row">
-      <div class="col-md-8 text-center">
-
-      </div>
-      
-      <div class="col-md-4 text-center">
-        
-      </div>
-    </div>
-  </div>
-</section>
+  
 
 <% end %>
-
+<!-- end user view -->
