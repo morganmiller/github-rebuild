@@ -17,13 +17,15 @@ class UserLogsInWithGithubTest < ActionDispatch::IntegrationTest
     User.any_instance.stubs(:chart).returns("<a></a>")
     User.any_instance.stubs(:stats).returns(30)
     payload = stub(size: 30)
-    repo = stub(name: "repo", url: "url")
+    repo = stub(name: "repo", full_name: "url", open_issues_count: 0)
     event = stub(type: "PushEvent", payload: payload, repo: repo)
     User.any_instance.stubs(:user_events)
         .returns([event])
     organization = stub(avatar_url: "url", login: "login")
     User.any_instance.stubs(:organizations)
         .returns([organization])
+    User.any_instance.stubs(:repos)
+      .returns([repo])
     visit '/'
     assert_equal 200, page.status_code
     click_on 'Sign in with Github'
